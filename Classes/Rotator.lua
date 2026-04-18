@@ -9,6 +9,19 @@ setmetatable(Rotator, {
 	end
 })
 
+local tonumber = tonumber
+
+-- Localized frequently used math functions for performance
+local math_abs = math.abs
+local math_cos = math.cos
+local math_rad = math.rad
+local math_random = math.random
+local math_sin = math.sin
+
+-- Constants
+local DEG_TO_RAD = math.pi / 180
+local DEG_TO_HALF_RAD = DEG_TO_RAD * 0.5
+
 function Rotator.new(_pitch, _yaw, _roll)
 	local Pitch = tonumber(_pitch) or 0
 	return setmetatable({
@@ -66,9 +79,9 @@ function Rotator:Equals(other, tolerance)
 	if not tolerance then tolerance = 0.000001 end
 
 	return
-		math.abs(NanosMath.NormalizeAxis(self.Pitch - other.Pitch)) <= tolerance and
-		math.abs(NanosMath.NormalizeAxis(self.Yaw - other.Yaw)) <= tolerance and
-		math.abs(NanosMath.NormalizeAxis(self.Roll - other.Roll)) <= tolerance
+		math_abs(NanosMath.NormalizeAxis(self.Pitch - other.Pitch)) <= tolerance and
+		math_abs(NanosMath.NormalizeAxis(self.Yaw - other.Yaw)) <= tolerance and
+		math_abs(NanosMath.NormalizeAxis(self.Roll - other.Roll)) <= tolerance
 end
 
 function Rotator:GetNormalized()
@@ -81,9 +94,9 @@ function Rotator:IsNearlyZero(tolerance)
 	if not tolerance then tolerance = 0.000001 end
 
 	return
-		math.abs(self.Pitch) <= tolerance and
-		math.abs(self.Yaw) <= tolerance and
-		math.abs(self.Roll) <= tolerance
+		math_abs(self.Pitch) <= tolerance and
+		math_abs(self.Yaw) <= tolerance and
+		math_abs(self.Roll) <= tolerance
 end
 
 function Rotator:IsZero()
@@ -102,14 +115,14 @@ function Rotator:GetForwardVector()
 	local pitch_no_winding = self.Pitch % 360
 	local yaw_no_winding = self.Yaw % 360
 
-	local RP = math.rad(pitch_no_winding)
-	local RY = math.rad(yaw_no_winding)
+	local RP = math_rad(pitch_no_winding)
+	local RY = math_rad(yaw_no_winding)
 
-	local SP = math.sin(RP)
-	local CP = math.cos(RP)
+	local SP = math_sin(RP)
+	local CP = math_cos(RP)
 
-	local SY = math.sin(RY)
-	local CY = math.cos(RY)
+	local SY = math_sin(RY)
+	local CY = math_cos(RY)
 
 	return Vector(CP * CY, CP * SY, SP)
 end
@@ -131,29 +144,26 @@ function Rotator:Normalize()
 end
 
 function Rotator:Quaternion()
-	local deg_to_rad = math.pi / 180
-	local rads_divided_by_2 = deg_to_rad / 2
-
 	local pitch_no_winding = self.Pitch % 360
 	local yaw_no_winding = self.Yaw % 360
 	local roll_no_winding = self.Roll % 360
 
-	local pitch_mult_rads = pitch_no_winding * rads_divided_by_2
-	local yaw_mult_rads = yaw_no_winding * rads_divided_by_2
-	local roll_mult_rads = roll_no_winding * rads_divided_by_2
+	local pitch_mult_rads = pitch_no_winding * DEG_TO_HALF_RAD
+	local yaw_mult_rads = yaw_no_winding * DEG_TO_HALF_RAD
+	local roll_mult_rads = roll_no_winding * DEG_TO_HALF_RAD
 
-	local SP = math.sin(pitch_mult_rads)
-	local CP = math.cos(pitch_mult_rads)
-	local SY = math.sin(yaw_mult_rads)
-	local CY = math.cos(yaw_mult_rads)
-	local SR = math.sin(roll_mult_rads)
-	local CR = math.cos(roll_mult_rads)
+	local SP = math_sin(pitch_mult_rads)
+	local CP = math_cos(pitch_mult_rads)
+	local SY = math_sin(yaw_mult_rads)
+	local CY = math_cos(yaw_mult_rads)
+	local SR = math_sin(roll_mult_rads)
+	local CR = math_cos(roll_mult_rads)
 
 	return Quat(
-			CR * SP * SY - SR * CP * CY,
-			-CR * SP * CY - SR * CP * SY,
-			CR * CP * SY - SR * SP * CY,
-			CR * CP * CY + SR * SP * SY
+		CR * SP * SY - SR * CP * CY,
+		-CR * SP * CY - SR * CP * SY,
+		CR * CP * SY - SR * SP * CY,
+		CR * CP * CY + SR * SP * SY
 	)
 end
 
@@ -162,8 +172,8 @@ function Rotator.Random(roll, min, max)
 	max = (type(max) == "number") and max or 180
 
 	return Rotator(
-		min + math.random() * (max - min),
-		min + math.random() * (max - min),
-		roll and min + math.random() * (max - min) or 0
+		min + math_random() * (max - min),
+		min + math_random() * (max - min),
+		roll and min + math_random() * (max - min) or 0
 	)
 end
