@@ -17,15 +17,12 @@ local math_sin = math.sin
 local DEG_TO_RAD = math.pi / 180
 
 function Matrix.new(rotation, origin)
-	local _self = setmetatable({}, Matrix)
-	_self.M = {}
-
-	for i = 1, 4 do
-		_self.M[i] = {}
-		for j = 1, 4 do
-			_self.M[i][j] = 0
-		end
-	end
+	local self = {
+		{ 0, 0, 0, 0 },
+		{ 0, 0, 0, 0 },
+		{ 0, 0, 0, 0 },
+		{ 0, 0, 0, 0 }
+	}
 
 	if (getmetatable(rotation) == Rotator) then
 		local pitch_rad = rotation.Pitch * DEG_TO_RAD
@@ -41,34 +38,36 @@ function Matrix.new(rotation, origin)
 		local cr = math_cos(roll_rad)
 		local sr = math_sin(roll_rad)
 
-		_self.M[1][1] = cp * cy
-		_self.M[1][2] = cp * sy
-		_self.M[1][3] = sp
-		_self.M[1][4] = 0
+		self[1][1] = cp * cy
+		self[1][2] = cp * sy
+		self[1][3] = sp
+		self[1][4] = 0
 
-		_self.M[2][1] = sr * sp * cy - cr * sy
-		_self.M[2][2] = sr * sp * sy + cr * cy
-		_self.M[2][3] = -sr * cp
-		_self.M[2][4] = 0
+		self[2][1] = sr * sp * cy - cr * sy
+		self[2][2] = sr * sp * sy + cr * cy
+		self[2][3] = -sr * cp
+		self[2][4] = 0
 
-		_self.M[3][1] = -(cr * sp * cy + sr * sy)
-		_self.M[3][2] = cy * sr - cr * sp * sy
-		_self.M[3][3] = cr * cp
-		_self.M[3][4] = 0
+		self[3][1] = -(cr * sp * cy + sr * sy)
+		self[3][2] = cy * sr - cr * sp * sy
+		self[3][3] = cr * cp
+		self[3][4] = 0
 
 		if (getmetatable(origin) == Vector) then
-			_self.M[4][1] = origin.X
-			_self.M[4][2] = origin.Y
-			_self.M[4][3] = origin.Z
+			self[4][1] = origin.X
+			self[4][2] = origin.Y
+			self[4][3] = origin.Z
 		else
-			_self.M[4][1] = 0
-			_self.M[4][2] = 0
-			_self.M[4][3] = 0
+			self[4][1] = 0
+			self[4][2] = 0
+			self[4][3] = 0
 		end
-		_self.M[4][4] = 1
+		self[4][4] = 1
 	end
 
-	return _self
+	return setmetatable({
+		M = self
+	}, Matrix)
 end
 
 function Matrix:TransformVector(vector)
