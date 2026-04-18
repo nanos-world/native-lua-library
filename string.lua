@@ -23,11 +23,13 @@ function string.FormatArgs(str, ...)
 end
 
 function string.ToTable(str)
-    local tbl = {}
+	if (not str) then return {} end
 
-    for i = 1, #str do
-        tbl[i] = str:sub(i, i)
-    end
+	local tbl = {}
 
-    return tbl
+	for i = 1, #str do
+		tbl[i] = str:sub(i, i)
+	end
+
+	return tbl
 end
