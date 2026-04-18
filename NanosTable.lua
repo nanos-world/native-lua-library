@@ -37,7 +37,7 @@ function NanosTable.Dump(original_table)
 			-- Stores all keys in another table, sorting it
 			local keys = {}
 
-			for key, v in pairs(object) do
+			for key in pairs(object) do
 				table_insert(keys, key)
 			end
 
