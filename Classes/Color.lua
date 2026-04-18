@@ -135,12 +135,12 @@ function Color.Random()
 end
 
 function Color.FromRGBA(r, g, b, a)
-	a = a or 255
 	return Color(
-		math.min(tonumber(r), 255) / 255,
-		math.min(tonumber(g), 255) / 255,
-		math.min(tonumber(b), 255) / 255,
-		math.min(tonumber(a), 255) / 255
+		math.min(tonumber(r or 255) or 255, 255) / 255,
+		math.min(tonumber(g or 255) or 255, 255) / 255,
+		math.min(tonumber(b or 255) or 255, 255) / 255,
+		math.min(tonumber(a or 255) or 255, 255) / 255
+		--       default color-^^^     ^^^-in case tonumber fails (invalid string)
 	)
 end
 
