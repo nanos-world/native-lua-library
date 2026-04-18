@@ -15,6 +15,8 @@ function NanosUtils.IsEntityValid(entity)
 end
 
 function NanosUtils.Benchmark(name, amount, func, ...)
+	-- Attempt to force GC (double call is intentional)
+	collectgarbage()
 	collectgarbage()
 
 	-- Store current time
