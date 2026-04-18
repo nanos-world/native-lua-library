@@ -9,6 +9,13 @@ setmetatable(Matrix, {
 	end
 })
 
+-- Localized frequently used math functions for performance
+local math_cos = math.cos
+local math_sin = math.sin
+
+-- Degrees to radians conversion constant
+local DEG_TO_RAD = math.pi / 180
+
 function Matrix.new(rotation, origin)
 	local _self = setmetatable({}, Matrix)
 	_self.M = {}
@@ -21,18 +28,18 @@ function Matrix.new(rotation, origin)
 	end
 
 	if (getmetatable(rotation) == Rotator) then
-		local pitch_rad = rotation.Pitch * (math.pi / 180)
-		local yaw_rad = rotation.Yaw * (math.pi / 180)
-		local roll_rad = rotation.Roll * (math.pi / 180)
+		local pitch_rad = rotation.Pitch * DEG_TO_RAD
+		local yaw_rad = rotation.Yaw * DEG_TO_RAD
+		local roll_rad = rotation.Roll * DEG_TO_RAD
 
-		local cp = math.cos(pitch_rad)
-		local sp = math.sin(pitch_rad)
+		local cp = math_cos(pitch_rad)
+		local sp = math_sin(pitch_rad)
 
-		local cy = math.cos(yaw_rad)
-		local sy = math.sin(yaw_rad)
+		local cy = math_cos(yaw_rad)
+		local sy = math_sin(yaw_rad)
 
-		local cr = math.cos(roll_rad)
-		local sr = math.sin(roll_rad)
+		local cr = math_cos(roll_rad)
+		local sr = math_sin(roll_rad)
 
 		_self.M[1][1] = cp * cy
 		_self.M[1][2] = cp * sy
