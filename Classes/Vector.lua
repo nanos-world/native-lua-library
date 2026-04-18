@@ -69,7 +69,11 @@ function Vector:__div(other)
 end
 
 function Vector:__pow(other)
-	return Vector(self.Y * other.Z - self.Z * other.Y, self.Z * other.X - self.X * other.Z, self.X * other.Y - self.Y * other.X)
+	return Vector(
+		self.Y * other.Z - self.Z * other.Y,
+		self.Z * other.X - self.X * other.Z,
+		self.X * other.Y - self.Y * other.X
+	)
 end
 
 function Vector:__unm()
@@ -168,7 +172,7 @@ function Vector:ToOrientationRotator()
 	return Rotator(
 		math.atan(self.Z, math.sqrt(self.X * self.X + self.Y * self.Y)) * (180.0 / math.pi),
 		math.atan(self.Y, self.X) * (180.0 / math.pi),
-		0.0
+		0
 	)
 end
 
