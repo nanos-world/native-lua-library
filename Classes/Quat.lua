@@ -76,10 +76,10 @@ function Quat:Normalize(tolerance)
 	if (square_sum >= tolerance) then
 		local scale = 1 / math.sqrt(square_sum)
 
-		self.X = self.X * scale;
-		self.Y = self.Y * scale;
-		self.Z = self.Z * scale;
-		self.W = self.W * scale;
+		self.X = self.X * scale
+		self.Y = self.Y * scale
+		self.Z = self.Z * scale
+		self.W = self.W * scale
 	else
 		self.X = 0
 		self.Y = 0

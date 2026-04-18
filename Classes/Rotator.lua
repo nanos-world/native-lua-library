@@ -121,7 +121,7 @@ end
 
 function Rotator:GetUpVector()
 	local m = Matrix(self)
-	return Vector(m.M[3][1], m.M[3][2], m.M[3][3]);
+	return Vector(m.M[3][1], m.M[3][2], m.M[3][3])
 end
 
 function Rotator:Normalize()
