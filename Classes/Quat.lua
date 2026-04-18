@@ -9,6 +9,17 @@ setmetatable(Quat, {
 	end
 })
 
+local tonumber = tonumber
+
+-- Localized frequently used math functions for performance
+local math_sqrt = math.sqrt
+local math_atan = math.atan
+local math_asin = math.asin
+
+-- Constants
+local RAD_TO_DEG = 180 / math.pi
+local SINGULARITY_THRESHOLD = 0.4999995
+
 function Quat.new(_X, _Y, _Z, _W)
 	local X = tonumber(_X) or 0
 	return setmetatable({
@@ -74,7 +85,7 @@ function Quat:Normalize(tolerance)
 	local square_sum = self.X * self.X + self.Y * self.Y + self.Z * self.Z + self.W * self.W
 
 	if (square_sum >= tolerance) then
-		local scale = 1 / math.sqrt(square_sum)
+		local scale = 1 / math_sqrt(square_sum)
 
 		self.X = self.X * scale
 		self.Y = self.Y * scale
@@ -151,23 +162,21 @@ function Quat:Rotator()
 	local yaw_y = 2 * (self.W * self.Z + self.X * self.Y)
 	local yaw_x = 1 - 2 * (self.Y * self.Y + self.Z * self.Z)
 
-	local singularity_threshold = 0.4999995
-	local rad_to_deg = 180 / math.pi
-
 	local rotator = Rotator()
 
-	if (singularity_test < -singularity_threshold) then
+	if (singularity_test < -SINGULARITY_THRESHOLD) then
 		rotator.Pitch = -90
-		rotator.Yaw = math.atan(yaw_y, yaw_x) * rad_to_deg
-		rotator.Roll = NanosMath.NormalizeAxis(-rotator.Yaw - (2 * math.atan(self.X, self.W) * rad_to_deg))
-	elseif (singularity_test > singularity_threshold) then
+		rotator.Yaw = math_atan(yaw_y, yaw_x) * RAD_TO_DEG
+		rotator.Roll = NanosMath.NormalizeAxis(-rotator.Yaw - (2 * math_atan(self.X, self.W) * RAD_TO_DEG))
+	elseif (singularity_test > SINGULARITY_THRESHOLD) then
 		rotator.Pitch = 90
-		rotator.Yaw = math.atan(yaw_y, yaw_x) * rad_to_deg
-		rotator.Roll = NanosMath.NormalizeAxis(rotator.Yaw - (2 * math.atan(self.X, self.W) * rad_to_deg))
+		rotator.Yaw = math_atan(yaw_y, yaw_x) * RAD_TO_DEG
+		rotator.Roll = NanosMath.NormalizeAxis(rotator.Yaw - (2 * math_atan(self.X, self.W) * RAD_TO_DEG))
 	else
-		rotator.Pitch = math.asin(2 * singularity_test) * rad_to_deg
-		rotator.Yaw = math.atan(yaw_y, yaw_x) * rad_to_deg
-		rotator.Roll = math.atan(-2 * (self.W * self.X + self.Y * self.Z), (1 - 2 * (self.X * self.X + self.Y * self.Y))) * rad_to_deg
+		rotator.Pitch = math_asin(2 * singularity_test) * RAD_TO_DEG
+		rotator.Yaw = math_atan(yaw_y, yaw_x) * RAD_TO_DEG
+		rotator.Roll = math_atan(-2 * (self.W * self.X + self.Y * self.Z), (1 - 2 * (self.X * self.X + self.Y * self.Y))) *
+		RAD_TO_DEG
 	end
 
 	return rotator
