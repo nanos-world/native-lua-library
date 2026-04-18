@@ -9,7 +9,7 @@ function string.EndsWith(str, text)
 end
 
 function string.Trim(str)
-	return str:gsub("^%s*(.-)%s*$", "%1")
+	return (str:match("^%s*(.-)%s*$"))
 end
 
 function string.FormatArgs(str, ...)
