@@ -9,6 +9,18 @@ setmetatable(Vector, {
 	end
 })
 
+local tonumber = tonumber
+
+-- Localized frequently used math functions for performance
+local math_abs = math.abs
+local math_atan = math.atan
+local math_cos = math.cos
+local math_sin = math.sin
+local math_sqrt = math.sqrt
+
+-- Radians to degrees conversion constant
+local RAD_TO_DEG = 180.0 / math.pi
+
 function Vector.new(_X, _Y, _Z)
 	local X = tonumber(_X) or 0
 	return setmetatable({
@@ -92,9 +104,9 @@ function Vector:Equals(other, tolerance)
 	if (not tolerance) then tolerance = 0.000001 end
 
 	return
-		math.abs(self.X - other.X) <= tolerance and
-		math.abs(self.Y - other.Y) <= tolerance and
-		math.abs(self.Z - other.Z) <= tolerance
+		math_abs(self.X - other.X) <= tolerance and
+		math_abs(self.Y - other.Y) <= tolerance and
+		math_abs(self.Z - other.Z) <= tolerance
 end
 
 function Vector:SizeSquared()
@@ -102,16 +114,16 @@ function Vector:SizeSquared()
 end
 
 function Vector:Size()
-	return math.sqrt(self:SizeSquared())
+	return math_sqrt(self:SizeSquared())
 end
 
 function Vector:IsNearlyZero(tolerance)
 	if (not tolerance) then tolerance = 0.000001 end
 
 	return
-		math.abs(self.X) <= tolerance and
-		math.abs(self.Y) <= tolerance and
-		math.abs(self.Z) <= tolerance
+		math_abs(self.X) <= tolerance and
+		math_abs(self.Y) <= tolerance and
+		math_abs(self.Z) <= tolerance
 end
 
 function Vector:IsZero()
@@ -127,7 +139,7 @@ function Vector:DistanceSquared(other)
 end
 
 function Vector:Distance(other)
-	return math.sqrt(self:DistanceSquared(other))
+	return math_sqrt(self:DistanceSquared(other))
 end
 
 function Vector:Normalize(tolerance)
@@ -136,7 +148,7 @@ function Vector:Normalize(tolerance)
 	local square_sum = self:SizeSquared()
 
 	if (square_sum > tolerance) then
-		local scale = 1 / math.sqrt(square_sum)
+		local scale = 1 / math_sqrt(square_sum)
 
 		self.X = self.X * scale
 		self.Y = self.Y * scale
@@ -149,7 +161,7 @@ function Vector:Normalize(tolerance)
 end
 
 function Vector:GetUnsafeNormal()
-	local scale = 1 / math.sqrt(self:SizeSquared())
+	local scale = 1 / math_sqrt(self:SizeSquared())
 	return self * scale
 end
 
@@ -164,26 +176,26 @@ function Vector:GetSafeNormal(tolerance)
 		return Vector()
 	end
 
-	local scale = 1 / math.sqrt(square_sum)
+	local scale = 1 / math_sqrt(square_sum)
 	return self * scale
 end
 
 function Vector:ToOrientationRotator()
 	return Rotator(
-		math.atan(self.Z, math.sqrt(self.X * self.X + self.Y * self.Y)) * (180.0 / math.pi),
-		math.atan(self.Y, self.X) * (180.0 / math.pi),
+		math_atan(self.Z, math_sqrt(self.X * self.X + self.Y * self.Y)) * RAD_TO_DEG,
+		math_atan(self.Y, self.X) * RAD_TO_DEG,
 		0
 	)
 end
 
 function Vector:ToOrientationQuat()
-	local yaw_rad = math.atan(self.Y, self.X)
-	local pitch_rad = math.atan(self.Z, math.sqrt(self.X * self.X + self.Y * self.Y))
+	local yaw_rad = math_atan(self.Y, self.X)
+	local pitch_rad = math_atan(self.Z, math_sqrt(self.X * self.X + self.Y * self.Y))
 
-	local SP = math.sin(pitch_rad * 0.5)
-	local CP = math.cos(pitch_rad * 0.5)
-	local SY = math.sin(yaw_rad * 0.5)
-	local CY = math.cos(yaw_rad * 0.5)
+	local SP = math_sin(pitch_rad * 0.5)
+	local CP = math_cos(pitch_rad * 0.5)
+	local SY = math_sin(yaw_rad * 0.5)
+	local CY = math_cos(yaw_rad * 0.5)
 
 	return Quat(
 		SP * SY,
