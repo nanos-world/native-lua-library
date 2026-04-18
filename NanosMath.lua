@@ -1,5 +1,4 @@
---[[ Nanos Math Library --]]
-
+-- Nanos Math Library
 NanosMath = {}
 
 function NanosMath.Round(value, decimals)

@@ -1,5 +1,4 @@
---[[ Nanos Table Library --]]
-
+-- Nanos Table Library
 NanosTable = {}
 
 function NanosTable.ShallowCopy(original_table)

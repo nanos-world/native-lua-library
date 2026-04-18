@@ -1,4 +1,4 @@
---[[ Color --]]
+-- Color
 
 Color = {}
 Color.__index = Color

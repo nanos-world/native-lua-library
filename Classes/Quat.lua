@@ -1,4 +1,4 @@
---[[ Quaternion --]]
+-- Quaternion
 
 Quat = {}
 Quat.__index = Quat

@@ -1,7 +1,5 @@
---[[ Nanos Utils Library --]]
-
+-- Nanos Utils Library
 NanosUtils = {}
-
 
 function NanosUtils.IsEntityValid(entity)
 	if (not entity) then return false end

@@ -1,4 +1,4 @@
---[[ Custom String methods --]]
+-- Custom String methods
 
 function string.StartsWith(str, text)
 	return str:sub(1, #text) == text

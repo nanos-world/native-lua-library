@@ -1,3 +1,5 @@
+-- Rotator
+
 Rotator = {}
 Rotator.__index = Rotator
 

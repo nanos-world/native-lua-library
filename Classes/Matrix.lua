@@ -1,4 +1,4 @@
---[[ Matrix --]]
+-- Matrix
 
 Matrix = {}
 Matrix.__index = Matrix

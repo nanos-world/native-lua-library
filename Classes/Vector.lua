@@ -1,4 +1,4 @@
---[[ Vector ]]
+-- Vector
 
 Vector = {}
 Vector.__index = Vector
