@@ -9,6 +9,8 @@ setmetatable(Color, {
 	end
 })
 
+local tonumber = tonumber
+
 function Color.new(_R, _G, _B, _A)
 	local R = tonumber(_R) or 0
 	return setmetatable({
