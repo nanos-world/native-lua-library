@@ -75,27 +75,27 @@ end
 function Matrix:GetTransposed()
 	local m = Matrix()
 
-	m.M[1][1] = self.M[1][1];
-	m.M[1][2] = self.M[2][1];
-	m.M[1][3] = self.M[3][1];
-	m.M[1][4] = self.M[4][1];
+	m.M[1][1] = self.M[1][1]
+	m.M[1][2] = self.M[2][1]
+	m.M[1][3] = self.M[3][1]
+	m.M[1][4] = self.M[4][1]
 
-	m.M[2][1] = self.M[1][2];
-	m.M[2][2] = self.M[2][2];
-	m.M[2][3] = self.M[3][2];
-	m.M[2][4] = self.M[4][2];
+	m.M[2][1] = self.M[1][2]
+	m.M[2][2] = self.M[2][2]
+	m.M[2][3] = self.M[3][2]
+	m.M[2][4] = self.M[4][2]
 
-	m.M[3][1] = self.M[1][3];
-	m.M[3][2] = self.M[2][3];
-	m.M[3][3] = self.M[3][3];
-	m.M[3][4] = self.M[4][3];
+	m.M[3][1] = self.M[1][3]
+	m.M[3][2] = self.M[2][3]
+	m.M[3][3] = self.M[3][3]
+	m.M[3][4] = self.M[4][3]
 
-	m.M[4][1] = self.M[1][4];
-	m.M[4][2] = self.M[2][4];
-	m.M[4][3] = self.M[3][4];
-	m.M[4][4] = self.M[4][4];
+	m.M[4][1] = self.M[1][4]
+	m.M[4][2] = self.M[2][4]
+	m.M[4][3] = self.M[3][4]
+	m.M[4][4] = self.M[4][4]
 
-	return m;
+	return m
 end
 
 function Matrix:__tostring()
