@@ -1,22 +1,30 @@
 -- Custom String methods
 
+local select = select
+local tostring = tostring
+local string_gsub = string.gsub
+local string_sub = string.sub
+local string_match = string.match
+
 function string.StartsWith(str, text)
-	return str:sub(1, #text) == text
+	return string_sub(str, 1, #text) == text
 end
 
 function string.EndsWith(str, text)
-	return text == "" or str:sub(-#text) == text
+	return text == "" or string_sub(str, -#text) == text
 end
 
 function string.Trim(str)
-	return (str:match("^%s*(.-)%s*$"))
+	-- The parentheses force Lua to discard extra return values if the API ever changes
+	return (string_match(str, "^%s*(.-)%s*$"))
 end
 
 function string.FormatArgs(str, ...)
 	str = str or ""
 
-	for i, arg in ipairs { ... } do
-		str = str:gsub("{" .. i .. "}", tostring(arg))
+	local args = { ... }
+	for i = 1, select("#", ...) do -- Avoid using #args to support trailing nils
+		str = string_gsub(str, "{" .. i .. "}", tostring(args[i]))
 	end
 
 	return str
@@ -28,7 +36,7 @@ function string.ToTable(str)
 	local tbl = {}
 
 	for i = 1, #str do
-		tbl[i] = str:sub(i, i)
+		tbl[i] = string_sub(str, i, i)
 	end
 
 	return tbl
