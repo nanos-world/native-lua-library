@@ -16,7 +16,7 @@ function string.FormatArgs(str, ...)
 	str = str or ""
 
 	for i, arg in ipairs { ... } do
-		str = str:gsub("{" .. tonumber(i) .. "}", tostring(arg))
+		str = str:gsub("{" .. i .. "}", tostring(arg))
 	end
 
 	return str
