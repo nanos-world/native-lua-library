@@ -213,7 +213,7 @@ function Color.FromHSV(h, s, v)
 	return Color.FromHSL(h, s, l)
 end
 
-function Color.FromHEX(hex)
+function Color.FromHex(hex)
 	local maybeHashtag = string_sub(hex, 1, 1)
 	if (maybeHashtag == "#") then
 		hex = string_sub(hex, 2)
@@ -251,3 +251,5 @@ function Color.FromHEX(hex)
 		)
 	end
 end
+
+Color.FromHEX = Color.FromHex -- backward compatibility
