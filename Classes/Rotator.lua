@@ -10,6 +10,8 @@ setmetatable(Rotator, {
 })
 
 local tonumber = tonumber
+local type = type
+local string_format = string.format
 
 -- Localized frequently used math functions for performance
 local math_abs = math.abs
@@ -71,7 +73,7 @@ function Rotator:__mul(other)
 end
 
 function Rotator:__tostring()
-	return string.format("Rotator(Pitch = %.2f, Yaw = %.2f, Roll = %.2f)", self.Pitch, self.Yaw, self.Roll)
+	return string_format("Rotator(Pitch = %.2f, Yaw = %.2f, Roll = %.2f)", self.Pitch, self.Yaw, self.Roll)
 end
 
 function Rotator:Equals(other, tolerance)
