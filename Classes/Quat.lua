@@ -22,13 +22,13 @@ local math_asin = math.asin
 local RAD_TO_DEG = 180 / math.pi
 local SINGULARITY_THRESHOLD = 0.4999995
 
-function Quat.new(_X, _Y, _Z, _W)
-	local X = tonumber(_X) or 0
+function Quat.new(x, y, z, w)
+	x = tonumber(x) or 0
 	return setmetatable({
-		X = X,
-		Y = tonumber(_Y) or X,
-		Z = tonumber(_Z) or X,
-		W = tonumber(_W) or X
+		X = x,
+		Y = tonumber(y) or x,
+		Z = tonumber(z) or x,
+		W = tonumber(w) or x
 	}, Quat)
 end
 
