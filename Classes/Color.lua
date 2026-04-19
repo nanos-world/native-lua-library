@@ -11,13 +11,14 @@ setmetatable(Color, {
 
 local tonumber = tonumber
 
-function Color.new(_R, _G, _B, _A)
-	local R = tonumber(_R) or 0
+function Color.new(r, g, b, a)
+	-- Defaults to opaque black color in case arguments are invalid
+	r = tonumber(r) or 0
 	return setmetatable({
-		R = R,
-		G = tonumber(_G) or R,
-		B = tonumber(_B) or R,
-		A = tonumber(_A) or 1
+		R = r,
+		G = tonumber(g) or r,
+		B = tonumber(b) or r,
+		A = tonumber(a) or 1
 	}, Color)
 end
 
@@ -136,11 +137,11 @@ end
 
 function Color.FromRGBA(r, g, b, a)
 	return Color(
-		math.min(tonumber(r or 255) or 255, 255) / 255,
-		math.min(tonumber(g or 255) or 255, 255) / 255,
-		math.min(tonumber(b or 255) or 255, 255) / 255,
+		math.min(tonumber(r       ) or 0  , 255) / 255,
+		math.min(tonumber(g       ) or 0  , 255) / 255,
+		math.min(tonumber(b       ) or 0  , 255) / 255,
 		math.min(tonumber(a or 255) or 255, 255) / 255
-		--       default color-^^^     ^^^-in case tonumber fails (invalid string)
+		-- default to Color.new^^^     ^^^-in case tonumber fails (invalid string)
 	)
 end
 
