@@ -105,8 +105,8 @@ function Matrix:GetTransposed()
 end
 
 function Matrix:__tostring()
-	return "Matrix(" .. self.M[1][1] .. ",	" .. self.M[1][2] .. ",	" .. self.M[1][3] .. ",	" .. self.M[1][4] .. "\n" ..
-		"\t\t\t\t\t" .. self.M[2][1] .. ",	" .. self.M[2][2] .. ",	" .. self.M[2][3] .. ",	" .. self.M[2][4] .. "\n" ..
-		"\t\t\t\t\t" .. self.M[3][1] .. ",	" .. self.M[3][2] .. ",	" .. self.M[3][3] .. ",	" .. self.M[3][4] .. "\n" ..
-		"\t\t\t\t\t" .. self.M[4][1] .. ",	" .. self.M[4][2] .. ",	" .. self.M[4][3] .. ",	" .. self.M[4][4] .. ")"
+	return "Matrix(" .. self.M[1][1] .. ",\t" .. self.M[1][2] .. ",\t" .. self.M[1][3] .. ",\t" .. self.M[1][4] .. "\n" ..
+		"\t\t\t\t\t" .. self.M[2][1] .. ",\t" .. self.M[2][2] .. ",\t" .. self.M[2][3] .. ",\t" .. self.M[2][4] .. "\n" ..
+		"\t\t\t\t\t" .. self.M[3][1] .. ",\t" .. self.M[3][2] .. ",\t" .. self.M[3][3] .. ",\t" .. self.M[3][4] .. "\n" ..
+		"\t\t\t\t\t" .. self.M[4][1] .. ",\t" .. self.M[4][2] .. ",\t" .. self.M[4][3] .. ",\t" .. self.M[4][4] .. ")"
 end
