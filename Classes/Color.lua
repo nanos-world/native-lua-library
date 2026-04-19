@@ -89,12 +89,12 @@ end
 function Color:ToHex(appends_transparency)
 	return appends_transparency
 	and string_format(
-			"#%.2X%.2X%.2X%.2X",
-			math_ceil(self.R * 255),
-			math_ceil(self.G * 255),
-			math_ceil(self.B * 255),
-			math_ceil(self.A * 255)
-		)
+		"#%.2X%.2X%.2X%.2X",
+		math_ceil(self.R * 255),
+		math_ceil(self.G * 255),
+		math_ceil(self.B * 255),
+		math_ceil(self.A * 255)
+	)
 	or string_format(
 		"#%.2X%.2X%.2X",
 		math_ceil(self.R * 255),
