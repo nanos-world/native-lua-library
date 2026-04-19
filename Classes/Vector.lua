@@ -10,6 +10,8 @@ setmetatable(Vector, {
 })
 
 local tonumber = tonumber
+local type = type
+local string_format = string.format
 
 -- Localized frequently used math functions for performance
 local math_abs = math.abs
@@ -19,14 +21,14 @@ local math_sin = math.sin
 local math_sqrt = math.sqrt
 
 -- Radians to degrees conversion constant
-local RAD_TO_DEG = 180.0 / math.pi
+local RAD_TO_DEG = 180 / math.pi
 
-function Vector.new(_X, _Y, _Z)
-	local X = tonumber(_X) or 0
+function Vector.new(x, y, z)
+	x = tonumber(x) or 0
 	return setmetatable({
-		X = X,
-		Y = tonumber(_Y) or X,
-		Z = tonumber(_Z) or X,
+		X = x,
+		Y = tonumber(y) or x,
+		Z = tonumber(z) or x,
 	}, Vector)
 end
 
@@ -97,7 +99,7 @@ function Vector:__eq(other)
 end
 
 function Vector:__tostring()
-	return string.format("Vector(X = %.2f, Y = %.2f, Z = %.2f)", self.X, self.Y, self.Z)
+	return string_format("Vector(X = %.2f, Y = %.2f, Z = %.2f)", self.X, self.Y, self.Z)
 end
 
 function Vector:Equals(other, tolerance)
