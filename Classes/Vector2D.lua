@@ -1,4 +1,4 @@
--- Vector2D
+-- 2D Vector
 
 Vector2D = {}
 Vector2D.__index = Vector2D
