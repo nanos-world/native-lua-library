@@ -152,10 +152,10 @@ end
 
 function Color.FromRGBA(r, g, b, a)
 	return Color(
-		math.min(tonumber(r       ) or 0  , 255) / 255,
-		math.min(tonumber(g       ) or 0  , 255) / 255,
-		math.min(tonumber(b       ) or 0  , 255) / 255,
-		math.min(tonumber(a or 255) or 255, 255) / 255
+		math_min(tonumber(r       ) or 0  , 255) / 255,
+		math_min(tonumber(g       ) or 0  , 255) / 255,
+		math_min(tonumber(b       ) or 0  , 255) / 255,
+		math_min(tonumber(a or 255) or 255, 255) / 255
 		-- default to Color.new^^^     ^^^-in case tonumber fails (invalid string)
 	)
 end
