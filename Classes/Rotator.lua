@@ -23,12 +23,13 @@ local math_sin = math.sin
 local DEG_TO_RAD = math.pi / 180
 local DEG_TO_HALF_RAD = DEG_TO_RAD * 0.5
 
-function Rotator.new(_pitch, _yaw, _roll)
-	local Pitch = tonumber(_pitch) or 0
+function Rotator.new(pitch, yaw, roll)
+	-- Defaults to zero angles in case of invalid arguments
+	pitch = tonumber(pitch) or 0
 	return setmetatable({
-		Pitch = Pitch,
-		Yaw = tonumber(_yaw) or Pitch,
-		Roll = tonumber(_roll) or Pitch
+		Pitch = pitch,
+		Yaw = tonumber(yaw) or pitch,
+		Roll = tonumber(roll) or pitch
 	}, Rotator)
 end
 
