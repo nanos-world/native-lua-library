@@ -10,7 +10,7 @@ local type = type
 local string_rep = string.rep
 local table_insert = table.insert
 
-local function sort_keys_ascending(a, b)
+local function AscendingOrderSortFunc(a, b)
 	if (type(a) == "number" and type(b) == "number") then
 		return a < b
 	end
@@ -45,7 +45,7 @@ local function DumpRecursive(object, indentation, visited, buffer)
 			keys[#keys + 1] = key
 		end
 
-		table.sort(keys, sort_keys_ascending)
+		table.sort(keys, AscendingOrderSortFunc)
 
 		-- Increases one indentation, as we will start outputting table elements
 		indentation = indentation + 1
