@@ -10,6 +10,8 @@ setmetatable(Quat, {
 })
 
 local tonumber = tonumber
+local type = type
+local string_format = string.format
 
 -- Localized frequently used math functions for performance
 local math_sqrt = math.sqrt
@@ -183,5 +185,5 @@ function Quat:Rotator()
 end
 
 function Quat:__tostring()
-	return string.format("Quat(X = %.4f, Y = %.4f, Z = %.4f, W = %.4f)", self.X, self.Y, self.Z, self.W)
+	return string_format("Quat(X = %.4f, Y = %.4f, Z = %.4f, W = %.4f)", self.X, self.Y, self.Z, self.W)
 end
