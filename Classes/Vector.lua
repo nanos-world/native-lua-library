@@ -1,4 +1,4 @@
--- Vector
+-- 3D Vector
 
 Vector = {}
 Vector.__index = Vector

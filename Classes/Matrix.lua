@@ -1,4 +1,4 @@
--- Matrix
+-- 4x4 Matrix
 
 Matrix = {}
 Matrix.__index = Matrix
