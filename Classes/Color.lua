@@ -140,9 +140,7 @@ Color.PALETTE = {
 }
 
 function Color.RandomPalette(includes_black)
-	local skips = 0
-	if (includes_black == false) then skips = 1 end
-
+	local skips = (includes_black == false) and 1 or 0
 	return Color.PALETTE[math_random(#Color.PALETTE - skips) + skips]
 end
 
