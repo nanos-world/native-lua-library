@@ -14,7 +14,6 @@ local tonumber = tonumber
 -- Localized frequently used math functions for performance
 local math_abs = math.abs
 local math_cos = math.cos
-local math_rad = math.rad
 local math_random = math.random
 local math_sin = math.sin
 
@@ -115,8 +114,8 @@ function Rotator:GetForwardVector()
 	local pitch_no_winding = self.Pitch % 360
 	local yaw_no_winding = self.Yaw % 360
 
-	local RP = math_rad(pitch_no_winding)
-	local RY = math_rad(yaw_no_winding)
+	local RP = pitch_no_winding * DEG_TO_RAD
+	local RY = yaw_no_winding * DEG_TO_RAD
 
 	local SP = math_sin(RP)
 	local CP = math_cos(RP)
