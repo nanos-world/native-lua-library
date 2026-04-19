@@ -10,6 +10,12 @@ setmetatable(Color, {
 })
 
 local tonumber = tonumber
+local type = type
+local math_ceil = math.ceil
+local math_min = math.min
+local math_random = math.random
+local string_format = string.format
+local string_sub = string.sub
 
 function Color.new(r, g, b, a)
 	-- Defaults to opaque black color in case arguments are invalid
@@ -77,15 +83,24 @@ function Color:__eq(other)
 end
 
 function Color:__tostring()
-	return string.format("Color(R = %.3f, G = %.3f, B = %.3f, A = %.3f)", self.R, self.G, self.B, self.A)
+	return string_format("Color(R = %.3f, G = %.3f, B = %.3f, A = %.3f)", self.R, self.G, self.B, self.A)
 end
 
 function Color:ToHex(appends_transparency)
-	if (appends_transparency == false) then
-		return string.format("#%.2X%.2X%.2X", math.ceil(self.R * 255), math.ceil(self.G * 255), math.ceil(self.B * 255))
-	else
-		return string.format("#%.2X%.2X%.2X%.2X", math.ceil(self.R * 255), math.ceil(self.G * 255), math.ceil(self.B * 255), math.ceil(self.A * 255))
-	end
+	return appends_transparency
+	and string_format(
+			"#%.2X%.2X%.2X%.2X",
+			math_ceil(self.R * 255),
+			math_ceil(self.G * 255),
+			math_ceil(self.B * 255),
+			math_ceil(self.A * 255)
+		)
+	or string_format(
+		"#%.2X%.2X%.2X",
+		math_ceil(self.R * 255),
+		math_ceil(self.G * 255),
+		math_ceil(self.B * 255)
+	)
 end
 
 Color.TRANSPARENT = Color(  0,    0,    0,    0)
@@ -128,11 +143,11 @@ function Color.RandomPalette(includes_black)
 	local skips = 0
 	if (includes_black == false) then skips = 1 end
 
-	return Color.PALETTE[math.random(#Color.PALETTE - skips) + skips]
+	return Color.PALETTE[math_random(#Color.PALETTE - skips) + skips]
 end
 
 function Color.Random()
-	return Color(math.random(), math.random(), math.random())
+	return Color(math_random(), math_random(), math_random())
 end
 
 function Color.FromRGBA(r, g, b, a)
@@ -148,11 +163,20 @@ end
 function Color.FromCYMK(c, y, m, k, a)
 	a = a or 1
 
-	local r = c * (1.0 - k) + k
-	local g = m * (1.0 - k) + k
-	local b = y * (1.0 - k) + k
+	local r = c * (1 - k) + k
+	local g = m * (1 - k) + k
+	local b = y * (1 - k) + k
 
-	return Color(1.0 - r, 1.0 - g, 1.0 - b, a)
+	return Color(1 - r, 1 - g, 1 - b, a)
+end
+
+local function hue2rgb(p, q, t)
+	if (t < 0) then t = t + 1 end
+	if (t > 1) then t = t - 1 end
+	if (t < 1 / 6) then return p + (q - p) * 6 * t end
+	if (t < 1 / 2) then return q end
+	if (t < 2 / 3) then return p + (q - p) * (2 / 3 - t) * 6 end
+	return p
 end
 
 function Color.FromHSL(h, s, l)
@@ -163,15 +187,6 @@ function Color.FromHSL(h, s, l)
 	if (s == 0) then
 		r, g, b = l, l, l -- achromatic
 	else
-		local function hue2rgb(p, q, t)
-			if (t < 0) then t = t + 1 end
-			if (t > 1) then t = t - 1 end
-			if (t < 1 / 6) then return p + (q - p) * 6 * t end
-			if (t < 1 / 2) then return q end
-			if (t < 2 / 3) then return p + (q - p) * (2 / 3 - t) * 6 end
-			return p
-		end
-
 		local q = l < 0.5 and l * (1 + s) or l + s - l * s
 		local p = 2 * l - q
 		r = hue2rgb(p, q, h + 1 / 3)
@@ -199,9 +214,9 @@ function Color.FromHSV(h, s, v)
 end
 
 function Color.FromHEX(hex)
-	local maybeHashtag = hex:sub(1, 1)
+	local maybeHashtag = string_sub(hex, 1, 1)
 	if (maybeHashtag == "#") then
-		hex = hex:sub(2)
+		hex = string_sub(hex, 2)
 	end
 
 	local number = tonumber(hex, 16)
@@ -219,8 +234,10 @@ function Color.FromHEX(hex)
 			(number >> 4 & 15) / 15,
 			(number & 15) / 15
 		)
+	end
+
 	-- is a full hex
-	elseif (#hex == 6 or #hex == 8) then
+	if (#hex == 6 or #hex == 8) then
 		-- is alpha not defined
 		if (#hex == 6) then
 			number = (number << 8) + 255
