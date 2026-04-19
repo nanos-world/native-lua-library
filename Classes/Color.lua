@@ -85,24 +85,24 @@ function Color:ToHex(appends_transparency)
 	end
 end
 
-Color.WHITE =		Color(1,   1,   1)
-Color.BLACK =		Color(0,   0,   0)
-Color.TRANSPARENT =	Color(0,   0,   0,	0)
+Color.WHITE        = Color(  1,   1,   1)
+Color.BLACK        = Color(  0,   0,   0)
+Color.TRANSPARENT  = Color(  0,   0,   0,   0)
 
-Color.RED =			Color(1,   0,   0)
-Color.GREEN =		Color(0,   1,   0)
-Color.BLUE =		Color(0,   0,   1)
+Color.RED          = Color(  1,   0,   0)
+Color.GREEN        = Color(  0,   1,   0)
+Color.BLUE         = Color(  0,   0,   1)
 
-Color.YELLOW =		Color(1,   1,   0)
-Color.CYAN =		Color(0,   1,   1)
-Color.MAGENTA =		Color(1,   0,   1)
+Color.YELLOW       = Color(  1,   1,   0)
+Color.CYAN         = Color(  0,   1,   1)
+Color.MAGENTA      = Color(  1,   0,   1)
 
-Color.ORANGE =		Color(1,   0.5, 0)
-Color.CHARTREUSE =	Color(0.5, 1,   1)
-Color.AQUAMARINE =	Color(0,   1,   0.5)
-Color.AZURE =		Color(0,   0.5, 1)
-Color.VIOLET =		Color(0.5, 0,   1)
-Color.ROSE =		Color(1,   0,   0.5)
+Color.ORANGE       = Color(  1, 0.5,   0)
+Color.CHARTREUSE   = Color(0.5,   1,   1)
+Color.AQUAMARINE   = Color(  0,   1, 0.5)
+Color.AZURE        = Color(  0, 0.5,   1)
+Color.VIOLET       = Color(0.5,   0,   1)
+Color.ROSE         = Color(  1,   0, 0.5)
 
 Color.PALETTE = {
 	Color.BLACK,
