@@ -9,11 +9,15 @@ setmetatable(Vector2D, {
 	end
 })
 
-function Vector2D.new(_X, _Y)
-	local X = tonumber(_X) or 0
+local tonumber = tonumber
+local type = type
+local string_format = string.format
+
+function Vector2D.new(x, y)
+	x = tonumber(x) or 0
 	return setmetatable({
-		X = X,
-		Y = tonumber(_Y) or X
+		X = x,
+		Y = tonumber(y) or x
 	}, Vector2D)
 end
 
@@ -76,5 +80,5 @@ function Vector2D:__eq(other)
 end
 
 function Vector2D:__tostring()
-	return string.format("Vector2D(X = %.2f, Y = %.2f)", self.X, self.Y)
+	return string_format("Vector2D(X = %.2f, Y = %.2f)", self.X, self.Y)
 end
