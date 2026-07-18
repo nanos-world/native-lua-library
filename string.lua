@@ -55,21 +55,29 @@ function string.SafePattern(str)
 end
 
 function string.Split(str, delimiter, is_pattern)
-    if (not delimiter) or delimiter == "" then
+    if not delimiter or #delimiter == 0 then
         return string.ToTable(str)
     end
 
-    local cur_i = 1
+    local result = {}
+    local pos = 1
 
-    local tbl = {}
-    for _=1, string.len(str) do
-        local start_i, end_i = string.find(str, delimiter, cur_i, not is_pattern)
-        if not start_i then break end
-        tbl[#tbl+1] = string.sub(str, cur_i, start_i-1)
-        cur_i = end_i+1
+    while true do
+        local first, last = string.find(str, delimiter, pos, not is_pattern)
+        if not first then
+            break
+        end
+
+		if last < pos then
+            return error("delimiter pattern matched an empty string", 2)
+        end
+
+        result[#result + 1] = string.sub(str, pos, first - 1)
+
+        pos = last + 1
     end
 
-    tbl[#tbl+1] = string.sub(str, cur_i)
+    result[#result + 1] = string.sub(str, pos)
 
-    return tbl
+    return result
 end
