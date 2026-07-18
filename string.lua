@@ -51,7 +51,7 @@ local escaped_pattern_characters = {
 }
 
 function string.SafePattern(str)
-    return string.gsub(str, ".", escaped_pattern_characters)
+    return (string.gsub(str, ".", escaped_pattern_characters))
 end
 
 function string.Split(str, delimiter, is_pattern)
