@@ -78,3 +78,38 @@ end
 function Vector2D:__tostring()
 	return string.format("Vector2D(X = %.2f, Y = %.2f)", self.X, self.Y)
 end
+
+function Vector2D:SizeSquared()
+	return self.X * self.X + self.Y * self.Y
+end
+
+function Vector2D:Size()
+	return math.sqrt(self:SizeSquared())
+end
+
+function Vector2D:IsNear(other, radius)
+	return self:DistanceSquared(other) < radius * radius
+end
+
+function Vector2D:DistanceSquared(other)
+	local X = other.X - self.X
+	local Y = other.Y - self.Y
+
+	return X * X + Y * Y
+end
+
+function Vector2D:Distance(other)
+	return math.sqrt(self:DistanceSquared(other))
+end
+
+function Vector2D:Dot(other)
+	return self.X * other.X + self.Y * other.Y
+end
+
+function Vector2D:Cross(other)
+	return self.X * other.Y - self.Y * other.X
+end
+
+function Vector2D:Lerp(other, alpha)
+	return self + (other - self) * alpha
+end
