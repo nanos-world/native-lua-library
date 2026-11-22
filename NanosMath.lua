@@ -132,3 +132,8 @@ end
 function NanosMath.RandomFloat(min, max)
 	return min + math.random() * (max - min)
 end
+
+function NanosMath.Lerp(base, target, factor)
+	factor = NanosMath.Clamp(factor, 0, 1)
+    return base*(1-factor) + target*factor
+end
