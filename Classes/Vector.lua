@@ -89,7 +89,7 @@ function Vector:__tostring()
 end
 
 function Vector:Equals(other, tolerance)
-	if (not tolerance) then tolerance = 0.000001 end
+	if (not tolerance) then tolerance = 0.0001 end
 
 	return
 		math.abs(self.X - other.X) <= tolerance and
@@ -106,7 +106,7 @@ function Vector:Size()
 end
 
 function Vector:IsNearlyZero(tolerance)
-	if (not tolerance) then tolerance = 0.000001 end
+	if (not tolerance) then tolerance = 0.0001 end
 
 	return
 		math.abs(self.X) <= tolerance and

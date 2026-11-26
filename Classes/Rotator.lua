@@ -61,7 +61,7 @@ function Rotator:__tostring()
 end
 
 function Rotator:Equals(other, tolerance)
-	if not tolerance then tolerance = 0.000001 end
+	if not tolerance then tolerance = 0.0001 end
 
 	return
 		math.abs(NanosMath.NormalizeAxis(self.Pitch - other.Pitch)) <= tolerance and
@@ -76,7 +76,7 @@ function Rotator:GetNormalized()
 end
 
 function Rotator:IsNearlyZero(tolerance)
-	if not tolerance then tolerance = 0.000001 end
+	if not tolerance then tolerance = 0.0001 end
 
 	return
 		math.abs(self.Pitch) <= tolerance and

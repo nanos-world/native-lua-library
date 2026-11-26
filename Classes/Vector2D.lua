@@ -79,6 +79,26 @@ function Vector2D:__tostring()
 	return string.format("Vector2D(X = %.2f, Y = %.2f)", self.X, self.Y)
 end
 
+function Vector2D:Equals(other, tolerance)
+	if (not tolerance) then tolerance = 0.0001 end
+
+	return
+		math.abs(self.X - other.X) <= tolerance and
+		math.abs(self.Y - other.Y) <= tolerance
+end
+
+function Vector2D:IsNearlyZero(tolerance)
+	if (not tolerance) then tolerance = 0.0001 end
+
+	return
+		math.abs(self.X) <= tolerance and
+		math.abs(self.Y) <= tolerance
+end
+
+function Vector2D:IsZero()
+	return self.X == 0 and self.Y == 0
+end
+
 function Vector2D:SizeSquared()
 	return self.X * self.X + self.Y * self.Y
 end
